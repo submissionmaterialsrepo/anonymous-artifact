@@ -6,11 +6,12 @@
 
 ```text
 .
-├── dados/             # Datasets e script de curadoria amostral
-├── src_inicial/       # Pipeline base — dataset balanceado, sem redução
-├── src_shap/          # Pipeline XAI — seleção por valores SHAP
-├── src_chi2/          # Pipeline estatístico — teste Chi-Square (χ²)
-├── src_rfe/           # Pipeline wrapper — Recursive Feature Elimination
+├── dados/                    # Datasets e script de curadoria amostral
+├── src_inicial/              # Pipeline base — dataset balanceado, sem redução
+├── src_shap/                 # Pipeline XAI — seleção por valores SHAP
+├── src_chi2/                 # Pipeline estatístico — teste Chi-Square (χ²)
+├── src_rfe/                  # Pipeline wrapper — Recursive Feature Elimination
+├── src_apicalls_agrupadas/   # Pipeline de agrupamento semântico de API calls
 └── README.md
 ```
 
@@ -72,6 +73,17 @@ Pipeline de seleção do tipo *wrapper* via *Recursive Feature Elimination* (RFE
 
 ---
 
+### `src_apicalls_agrupadas/` — Agrupamento Semântico de API Calls
+
+Pipeline dedicado ao agrupamento de features do tipo API call por categoria semântica e à construção do dataset resultante. Os scripts desta pasta:
+
+- Implementam a lógica de agrupamento das features de API calls em categorias funcionais, consolidando chamadas semanticamente relacionadas em atributos agregados;
+- Geram o dataset derivado com as features agrupadas, substituindo as API calls individuais pelas representações categóricas;
+- Treinam e avaliam os modelos de classificação sobre o dataset resultante;
+- Armazenam os resultados, métricas e artefatos dos experimentos nos diretórios de saída criados automaticamente.
+
+---
+
 ## Ambiente Experimental
 
 | Parâmetro               | Configuração                 |
@@ -94,7 +106,8 @@ Pipeline de seleção do tipo *wrapper* via *Recursive Feature Elimination* (RFE
 5. Executar o pipeline SHAP (`src_shap/`).
 6. Executar o pipeline Chi² (`src_chi2/`).
 7. Executar o pipeline RFE (`src_rfe/`).
-8. Consolidar e comparar as métricas obtidas por cada abordagem.
+8. Executar o pipeline de agrupamento de API calls (`src_apicalls_agrupadas/`).
+9. Consolidar e comparar as métricas obtidas por cada abordagem.
 
 ---
 
@@ -105,7 +118,7 @@ Cada pipeline cria automaticamente uma estrutura de diretórios contendo:
 - Métricas de classificação (acurácia, F1, AUC, etc.);
 - Modelos treinados serializados;
 - Rankings ordinais de atributos;
-- Datasets reduzidos por método;
+- Datasets reduzidos ou derivados por método;
 - Arquivos auxiliares para análise e replicação dos resultados.
 
 ---
